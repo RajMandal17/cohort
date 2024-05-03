@@ -10,6 +10,6 @@ const token = jwt.sign(value , "secret");
 console.log(token);
 
 
-
+// npm install
 // npm install jsonwebtoken
 // node jwtAuthenthicationtoken.js
