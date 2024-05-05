@@ -2,9 +2,13 @@ const express = require("express");
 //to import from types.js
 const { createTodo, updateTodo } = require("./types");
 const { todo } = require("./db");
+const cors = require("cors");
 const app = express();
 app.use(express.json());
-
+// app.use(cors({
+//     origin: "http://localhost:5173"
+// }))
+app.use(cors());
 // body {
 //     title:String;
 //     description:String;
@@ -33,11 +37,17 @@ app.post("/todo" , async function(req , res){
 
 
 
-app.get("/todos" ,async function(req , res){
 
-    const todos = await todo.find({});
-
-})
+app.get("/todos", async function(req, res) {
+    try {
+        const todos = await todo.find({});
+        return res.json(todos);
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Internal Server Error"
+        });
+    }
+});
 
 app.put("/completed" , async function(req , res){
 
